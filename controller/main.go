@@ -3,10 +3,12 @@ package main
 import (
 	"os"
 
-	log "github.com/Sirupsen/logrus"
-	"github.com/codegangsta/cli"
-	"github.com/shipyard/shipyard/controller/commands"
-	"github.com/shipyard/shipyard/version"
+	log "packages/Sirupsen/logrus"
+
+	"packages/codegangsta/cli"
+
+	"github.com/clyhs/shipyard/controller/commands"
+	"github.com/clyhs/shipyard/version"
 )
 
 const (
