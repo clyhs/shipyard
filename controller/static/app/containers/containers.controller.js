@@ -5,9 +5,14 @@
         .module('shipyard.containers')
         .controller('ContainersController', ContainersController);
 
-    ContainersController.$inject = ['$scope', 'ContainerService', '$state'];
-    function ContainersController($scope, ContainerService, $state) {
+    
+    ContainersController.$inject = ['$scope', 'ContainerService','AuthService', '$state'];
+    function ContainersController($scope, ContainerService,AuthService, $state) {
         var vm = this;
+		
+		
+        //$state.transitionTo('dashboard.containers');
+        
         
         vm.error = "";
         vm.errors = [];

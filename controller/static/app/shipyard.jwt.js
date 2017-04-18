@@ -26,12 +26,14 @@
                 return $q.reject(response);
             };
             })
-            .service('errorInterceptor', function($q, $rootScope) {
+            .service('errorInterceptor',function($q, $rootScope,$injector) {
                 var service = this;
                 service.responseError = function(response) {
                     if(response.status === 401) {
                         console.log("401");
-                        $rootScope.$state.go('login');
+                        //$rootScope.$state.go('login');
+						//var AuthService = $injector.get('AuthService');
+						
                     } else if(response.status === 403) {
                         $rootScope.$state.go('403');
                     } else if(response.status > 400) {

@@ -3,6 +3,7 @@
 
 	angular
 		.module('shipyard.images', [
+		            'shipyard.services',
                     'ngResource',
                     'ui.router',
 		]);

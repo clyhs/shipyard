@@ -6,15 +6,15 @@ import (
 	"net/http"
 
 	log "github.com/Sirupsen/logrus"
-	"github.com/codegangsta/negroni"
+	//"github.com/codegangsta/negroni"
 	"github.com/gorilla/context"
 	"github.com/gorilla/mux"
 	"github.com/mailgun/oxy/forward"
 	"github.com/shipyard/shipyard/auth"
 	"github.com/shipyard/shipyard/controller/manager"
-	"github.com/shipyard/shipyard/controller/middleware/access"
-	"github.com/shipyard/shipyard/controller/middleware/audit"
-	mAuth "github.com/shipyard/shipyard/controller/middleware/auth"
+	//"github.com/shipyard/shipyard/controller/middleware/access"
+	//"github.com/shipyard/shipyard/controller/middleware/audit"
+	//mAuth "github.com/shipyard/shipyard/controller/middleware/auth"
 	"github.com/shipyard/shipyard/tlsutils"
 	"golang.org/x/net/websocket"
 )
@@ -146,33 +146,34 @@ func (a *Api) Run() error {
 
 	// global handler
 	globalMux.Handle("/", http.FileServer(http.Dir("static")))
+	/*
+		auditExcludes := []string{
+			"^/containers/json",
+			"^/images/json",
+			"^/api/events",
+		}*/
 
-	auditExcludes := []string{
-		"^/containers/json",
-		"^/images/json",
-		"^/api/events",
-	}
-	apiAuditor := audit.NewAuditor(controllerManager, auditExcludes)
+	//apiAuditor := audit.NewAuditor(controllerManager, auditExcludes)
 
 	// api router; protected by auth
-	apiAuthRouter := negroni.New()
-	apiAuthRequired := mAuth.NewAuthRequired(controllerManager, a.authWhitelistCIDRs)
-	apiAccessRequired := access.NewAccessRequired(controllerManager)
-	apiAuthRouter.Use(negroni.HandlerFunc(apiAuthRequired.HandlerFuncWithNext))
-	apiAuthRouter.Use(negroni.HandlerFunc(apiAccessRequired.HandlerFuncWithNext))
-	apiAuthRouter.Use(negroni.HandlerFunc(apiAuditor.HandlerFuncWithNext))
-	apiAuthRouter.UseHandler(apiRouter)
-	globalMux.Handle("/api/", apiAuthRouter)
+	//apiAuthRouter := negroni.New()
+	//apiAuthRequired := mAuth.NewAuthRequired(controllerManager, a.authWhitelistCIDRs)
+	//apiAccessRequired := access.NewAccessRequired(controllerManager)
+	//apiAuthRouter.Use(negroni.HandlerFunc(apiAuthRequired.HandlerFuncWithNext))
+	//apiAuthRouter.Use(negroni.HandlerFunc(apiAccessRequired.HandlerFuncWithNext))
+	//apiAuthRouter.Use(negroni.HandlerFunc(apiAuditor.HandlerFuncWithNext))
+	//apiAuthRouter.UseHandler(apiRouter)
+	globalMux.Handle("/api/", apiRouter)
 
 	// account router ; protected by auth
 	accountRouter := mux.NewRouter()
 	accountRouter.HandleFunc("/account/changepassword", a.changePassword).Methods("POST")
-	accountAuthRouter := negroni.New()
-	accountAuthRequired := mAuth.NewAuthRequired(controllerManager, a.authWhitelistCIDRs)
-	accountAuthRouter.Use(negroni.HandlerFunc(accountAuthRequired.HandlerFuncWithNext))
-	accountAuthRouter.Use(negroni.HandlerFunc(apiAuditor.HandlerFuncWithNext))
-	accountAuthRouter.UseHandler(accountRouter)
-	globalMux.Handle("/account/", accountAuthRouter)
+	//accountAuthRouter := negroni.New()
+	//accountAuthRequired := mAuth.NewAuthRequired(controllerManager, a.authWhitelistCIDRs)
+	//accountAuthRouter.Use(negroni.HandlerFunc(accountAuthRequired.HandlerFuncWithNext))
+	//accountAuthRouter.Use(negroni.HandlerFunc(apiAuditor.HandlerFuncWithNext))
+	//accountAuthRouter.UseHandler(accountRouter)
+	globalMux.Handle("/account/", accountRouter)
 
 	// login handler; public
 	loginRouter := mux.NewRouter()
@@ -264,28 +265,28 @@ func (a *Api) Run() error {
 		}
 	}
 
-	swarmAuthRouter := negroni.New()
-	swarmAuthRequired := mAuth.NewAuthRequired(controllerManager, a.authWhitelistCIDRs)
-	swarmAccessRequired := access.NewAccessRequired(controllerManager)
-	swarmAuthRouter.Use(negroni.HandlerFunc(swarmAuthRequired.HandlerFuncWithNext))
-	swarmAuthRouter.Use(negroni.HandlerFunc(swarmAccessRequired.HandlerFuncWithNext))
-	swarmAuthRouter.Use(negroni.HandlerFunc(apiAuditor.HandlerFuncWithNext))
-	swarmAuthRouter.UseHandler(swarmRouter)
-	globalMux.Handle("/containers/", swarmAuthRouter)
-	globalMux.Handle("/_ping", swarmAuthRouter)
-	globalMux.Handle("/commit", swarmAuthRouter)
-	globalMux.Handle("/build", swarmAuthRouter)
-	globalMux.Handle("/events", swarmAuthRouter)
-	globalMux.Handle("/version", swarmAuthRouter)
-	globalMux.Handle("/images/", swarmAuthRouter)
-	globalMux.Handle("/exec/", swarmAuthRouter)
-	globalMux.Handle("/v1.14/", swarmAuthRouter)
-	globalMux.Handle("/v1.15/", swarmAuthRouter)
-	globalMux.Handle("/v1.16/", swarmAuthRouter)
-	globalMux.Handle("/v1.17/", swarmAuthRouter)
-	globalMux.Handle("/v1.18/", swarmAuthRouter)
-	globalMux.Handle("/v1.19/", swarmAuthRouter)
-	globalMux.Handle("/v1.20/", swarmAuthRouter)
+	//swarmAuthRouter := negroni.New()
+	//swarmAuthRequired := mAuth.NewAuthRequired(controllerManager, a.authWhitelistCIDRs)
+	//swarmAccessRequired := access.NewAccessRequired(controllerManager)
+	//swarmAuthRouter.Use(negroni.HandlerFunc(swarmAuthRequired.HandlerFuncWithNext))
+	//swarmAuthRouter.Use(negroni.HandlerFunc(swarmAccessRequired.HandlerFuncWithNext))
+	//swarmAuthRouter.Use(negroni.HandlerFunc(apiAuditor.HandlerFuncWithNext))
+	//swarmAuthRouter.UseHandler(swarmRouter)
+	globalMux.Handle("/containers/", swarmRouter)
+	globalMux.Handle("/_ping", swarmRouter)
+	globalMux.Handle("/commit", swarmRouter)
+	globalMux.Handle("/build", swarmRouter)
+	globalMux.Handle("/events", swarmRouter)
+	globalMux.Handle("/version", swarmRouter)
+	globalMux.Handle("/images/", swarmRouter)
+	globalMux.Handle("/exec/", swarmRouter)
+	globalMux.Handle("/v1.14/", swarmRouter)
+	globalMux.Handle("/v1.15/", swarmRouter)
+	globalMux.Handle("/v1.16/", swarmRouter)
+	globalMux.Handle("/v1.17/", swarmRouter)
+	globalMux.Handle("/v1.18/", swarmRouter)
+	globalMux.Handle("/v1.19/", swarmRouter)
+	globalMux.Handle("/v1.20/", swarmRouter)
 
 	// check for admin user
 	if _, err := controllerManager.Account("admin"); err == manager.ErrAccountDoesNotExist {
@@ -304,6 +305,8 @@ func (a *Api) Run() error {
 	}
 
 	log.Infof("controller listening on %s", a.listenAddr)
+
+	a.manager.Authenticate("admin", "shipyard")
 
 	s := &http.Server{
 		Addr:    a.listenAddr,

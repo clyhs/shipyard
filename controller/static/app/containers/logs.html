@@ -14,6 +14,9 @@
 </div>
 <div class="row" ng-show="vm.logs">
     <div class="column">
+	    <div ui-sref="dashboard.containers" class="ui small labeled  button">
+			返回上一层
+		</div>
         <div class="ui segment page" > 
             <h4 class="dividing header">容器: {{ vm.id | limitTo:12 }}</h2>
             <pre ng-bind="vm.logs" class="logs">

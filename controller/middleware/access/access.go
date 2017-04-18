@@ -15,6 +15,7 @@ var (
 )
 
 func defaultDeniedHandler(w http.ResponseWriter, r *http.Request) {
+
 	http.Error(w, "拒绝访问", http.StatusForbidden)
 }
 
@@ -36,6 +37,7 @@ func NewAccessRequired(m manager.Manager) *AccessRequired {
 
 func (a *AccessRequired) Handler(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
 		err := a.handleRequest(w, r)
 		if err != nil {
 			logger.Warnf("unauthorized request for %s from %s", r.URL.Path, r.RemoteAddr)
@@ -46,6 +48,7 @@ func (a *AccessRequired) Handler(h http.Handler) http.Handler {
 }
 
 func (a *AccessRequired) handleRequest(w http.ResponseWriter, r *http.Request) error {
+
 	valid := false
 	authHeader := r.Header.Get("X-Access-Token")
 	parts := strings.Split(authHeader, ":")
@@ -75,6 +78,7 @@ func (a *AccessRequired) handleRequest(w http.ResponseWriter, r *http.Request) e
 
 func (a *AccessRequired) checkRule(rule *auth.AccessRule, path, method string) bool {
 	// check wildcard
+
 	if rule.Path == "*" {
 		return true
 	}
@@ -93,6 +97,7 @@ func (a *AccessRequired) checkRule(rule *auth.AccessRule, path, method string) b
 }
 
 func (a *AccessRequired) checkRole(role string, path, method string) bool {
+
 	for _, acl := range a.acls {
 		// find role
 		if acl.RoleName == role {
@@ -108,6 +113,7 @@ func (a *AccessRequired) checkRole(role string, path, method string) bool {
 }
 func (a *AccessRequired) checkAccess(acct *auth.Account, path string, method string) bool {
 	// check roles
+
 	for _, role := range acct.Roles {
 		// check acls
 		if a.checkRole(role, path, method) {
@@ -119,6 +125,7 @@ func (a *AccessRequired) checkAccess(acct *auth.Account, path string, method str
 }
 
 func (a *AccessRequired) HandlerFuncWithNext(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+
 	err := a.handleRequest(w, r)
 	session, _ := a.manager.Store().Get(r, a.manager.StoreKey())
 	username := session.Values["username"]

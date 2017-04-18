@@ -19009,7 +19009,7 @@ ol.ui.horizontal.list li:before,
 /* Prototype */
 
 .ui.table {
-  width: 100%;
+  width: 95%;
   background: #FFFFFF;
   margin: 1em 0em;
   border: 1px solid #D0D0D0;
@@ -19851,7 +19851,7 @@ ol.ui.horizontal.list li:before,
 
 .ui.sortable.table thead th {
   cursor: pointer;
-  white-space: nowrap;
+  /*white-space: nowrap;*/
   border-left: 1px solid #D0D0D0;
   color: rgba(0, 0, 0, 0.8);
 }

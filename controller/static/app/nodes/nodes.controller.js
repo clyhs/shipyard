@@ -5,9 +5,16 @@
 		.module('shipyard.nodes')
 		.controller('NodesController', NodesController);
 
-	NodesController.$inject = ['nodes', 'NodesService', '$state', '$timeout'];
-	function NodesController(nodes, NodesService, $state, $timeout) {
+	NodesController.$inject = ['nodes', 'NodesService','AuthService', '$state', '$timeout'];
+	function NodesController(nodes, NodesService,AuthService, $state, $timeout) {
             var vm = this;
+			/*
+			AuthService.login({
+                    username: "admin", 
+                    password: "shipyard"
+                }).then(function(response) {
+                    $state.transitionTo('dashboard.nodes');
+                });*/
             vm.nodes = nodes;
             vm.refresh = refresh;
             vm.removeNode = removeNode;

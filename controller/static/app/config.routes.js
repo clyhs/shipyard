@@ -7,7 +7,9 @@
 
     getRoutes.$inject = ['$stateProvider', '$urlRouterProvider'];
 
-    function getRoutes($stateProvider, $urlRouterProvider) {	
+    function getRoutes($stateProvider, $urlRouterProvider) {
+	
+	    
         $stateProvider
             .state('error', {
                 templateUrl: 'app/error/error.html',

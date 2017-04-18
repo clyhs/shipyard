@@ -3,6 +3,7 @@
 
     angular
         .module('shipyard.containers', [
+		        'shipyard.services',
                 'shipyard.layout',
                 'ngResource',
                 'ngSanitize',

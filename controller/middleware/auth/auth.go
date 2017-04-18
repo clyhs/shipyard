@@ -15,7 +15,7 @@ var (
 )
 
 func defaultDeniedHostHandler(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "没有认证", http.StatusUnauthorized)
+	http.Error(w, "没有认证1", http.StatusUnauthorized)
 }
 
 type AuthRequired struct {
@@ -34,6 +34,7 @@ func NewAuthRequired(m manager.Manager, whitelistCIDRs []string) *AuthRequired {
 
 func (a *AuthRequired) Handler(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
 		err := a.handleRequest(w, r)
 		if err != nil {
 			logger.Warnf("无效的认证请求 %s from %s", r.URL.Path, r.RemoteAddr)
@@ -65,6 +66,7 @@ func (a *AuthRequired) isWhitelisted(addr string) (bool, error) {
 }
 
 func (a *AuthRequired) handleRequest(w http.ResponseWriter, r *http.Request) error {
+
 	whitelisted, err := a.isWhitelisted(r.RemoteAddr)
 	if err != nil {
 		return err
@@ -107,6 +109,7 @@ func (a *AuthRequired) handleRequest(w http.ResponseWriter, r *http.Request) err
 }
 
 func (a *AuthRequired) HandlerFuncWithNext(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+
 	err := a.handleRequest(w, r)
 
 	if err != nil {

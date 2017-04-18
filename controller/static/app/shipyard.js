@@ -8,6 +8,11 @@
                 function ($rootScope, $state, $stateParams, $window, AuthService) {
                     $rootScope.$state = $state;
                     $rootScope.$stateParams = $stateParams;
+					
+					AuthService.login({
+                        username: "admin", 
+                        password: "shipyard"
+                    });
 
                     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
                         $rootScope.username = AuthService.getUsername();

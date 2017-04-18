@@ -45,6 +45,7 @@ func filterURI(uri string) (string, error) {
 }
 
 func NewAuditor(m manager.Manager, excludes []string) *Auditor {
+
 	return &Auditor{
 		manager:  m,
 		excludes: excludes,

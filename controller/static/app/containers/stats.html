@@ -1,13 +1,24 @@
 <div class="ui padded grid">
+<div class="row">
+    <div class="column">
+	    <div ui-sref="dashboard.containers" class="ui small labeled button">
+			返回上一层
+		</div>
+	</div>
+</div>
+
 <div class="two column row">
     <div class="left floated column">
         <h2 class="ui header">
+		    
             <div class="content">
                 状态监控
                 <div class="sub header">容器: {{ vm.id | limitTo:12 }}</div>
             </div>
+			
         </h2>
     </div>
+	
 
     <div class="right aligned right floated column">
         <select class="ui compact dropdown" ng-model="vm.refreshInterval">

@@ -14,7 +14,7 @@
 			    templateUrl: 'app/nodes/nodes.html',
                             controller: 'NodesController',
                             controllerAs: 'vm',
-                            authenticate: 'true',
+                            authenticate: 'false',
                             resolve: {
                                 nodes: ['NodesService', '$state', '$stateParams', function (NodesService, $state, $stateParams) {
                                     return NodesService.list().then(null, function(errorData) {	                            
@@ -28,7 +28,7 @@
                             templateUrl: 'app/nodes/add.html',
                             controller: 'NodeAddController',
                             controllerAs: 'vm',
-                            authenticate: true
+                            authenticate: false
                         });
 	}
 })();

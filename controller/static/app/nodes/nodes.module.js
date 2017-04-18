@@ -3,7 +3,8 @@
 
 	angular
 		.module('shipyard.nodes', [
-                        'ngResource',
+		    'shipyard.services',
+            'ngResource',
 			'ui.router',
 		]);
 		

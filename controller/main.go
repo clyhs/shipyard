@@ -2,10 +2,9 @@ package main
 
 import (
 	"os"
-
 	log "packages/Sirupsen/logrus"
 
-	"packages/codegangsta/cli"
+	"github.com/codegangsta/cli"
 
 	"github.com/clyhs/shipyard/controller/commands"
 	"github.com/clyhs/shipyard/version"
@@ -60,7 +59,7 @@ func main() {
 				},
 				cli.StringFlag{
 					Name:   "docker, d",
-					Value:  "tcp://127.0.0.1:2375",
+					Value:  "tcp://192.168.0.16:2375",
 					Usage:  "docker swarm addr",
 					EnvVar: "DOCKER_HOST",
 				},

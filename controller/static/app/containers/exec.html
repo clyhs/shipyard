@@ -1,4 +1,11 @@
 <div class="ui padded grid">
+<div class="row">
+    <div class="column">
+	    <div ui-sref="dashboard.containers" class="ui small labeled button">
+			返回上一层
+		</div>
+	</div>
+</div>
 <!-- this needs to be inlined so it does not conflict with the semantic "terminal" names -->
 <div class="two column row">
     <div class="left floated column">
@@ -8,6 +15,7 @@
         </div>
         <div ng-click="vm.connect()" class="ui small green labeled button">连容器终端</div>
         <div ng-click="vm.disconnect()" class="ui small labeled button">退出容器终端</div>
+		
     </div>
 
     <div class="right aligned right floated column">

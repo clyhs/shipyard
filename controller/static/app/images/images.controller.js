@@ -5,9 +5,16 @@
 		.module('shipyard.images')
 		.controller('ImagesController', ImagesController);
 
-	ImagesController.$inject = ['images', 'ImagesService', '$state', '$timeout', '$scope'];
-	function ImagesController(images, ImagesService, $state, $timeout, $scope) {
+	ImagesController.$inject = ['images', 'ImagesService','AuthService', '$state', '$timeout', '$scope'];
+	function ImagesController(images, ImagesService,AuthService, $state, $timeout, $scope) {
             var vm = this;
+			/*
+			AuthService.login({
+                    username: "admin", 
+                    password: "shipyard"
+                }).then(function(response) {
+                    $state.transitionTo('dashboard.images');
+                });*/
             vm.images = images;
             vm.pulling = false;
             vm.selectedImage = null;
